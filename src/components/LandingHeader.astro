@@ -1,0 +1,77 @@
+---
+import Logo from "./Logo.astro";
+---
+
+<header
+id="landing-header"
+class="landing-section py-4 px-9 flex items-center fixed top-0 w-full justify-between z-40 text-current"
+>
+<div class="flex flex-grow basis-0">
+ <h1 class="text-2xl kanit-bold">VIRA</h1>
+</div>
+
+<nav>
+    <ul
+        class="flex text-sm [&>li>a]:transition-colors [&>li>a]:duration-500 [&>li>a]:text-current [&>li>a]:iline-block [&>li>a]:px-4 [&>li>a]:font-medium [&>li>a]:py-2]"
+    >
+        <li class="hover:bg-black/5 hover:back hover:rounded"><a href="#">Basico</a></li>
+        <li class="hover:bg-black/5 hover:backdrop-blur-2xl hover:rounded"><a href="#">Gama de entrada</a></li>
+        <li class="hover:bg-black/5 hover:backdrop-blur-2xl hover:rounded"><a href="#">Estandar</a></li>
+        <li class="hover:bg-black/5 hover:backdrop-blur-2xl hover:rounded"><a href="#">Gama media</a></li>
+        <li class="hover:bg-black/5 hover:backdrop-blur-2xl hover:rounded"><a href="#">Gama alta</a></li>
+        <li class="hover:bg-black/5 hover:backdrop-blur-2xl hover:rounded"><a href="#">Accesorios</a></li>
+    </ul>
+</nav>
+
+<nav class="flex flex-grow basis-0 justify-end">
+    <ul
+        class="flex text-sm [&>li>a]:text-current [&>li>a]:iline-block [&>li>a]:px-4 [&>li>a]:font-medium [&>li>a]:py-2]"
+    >
+        <li class="hover:bg-black/5 hover:backdrop-blur-2xl hover:rounded"><a href="#">Soporte</a></li>
+        <li class="hover:bg-black/5 hover:backdrop-blur-2xl hover:rounded"><a href="#">Tienda</a></li>
+        <li class="hover:bg-black/5 hover:backdrop-blur-2xl hover:rounded"><a href="#">Cuenta</a></li>
+        <li class="hover:bg-black/5 hover:backdrop-blur-2xl hover:rounded"><a href="#">Menu</a></li>
+    </ul>
+</nav>
+
+<div id="menu-backdrop"
+ class={`
+ absolute bg-black/5 backdrop-blur-lg rounded
+ left-[var(--left)] top-[var(--top)]
+ w-[var(--width)] h-[var(--height)]
+ transition-all duration-300 
+ ease-in-out
+
+`}>
+
+</div>
+</header>
+
+<script>
+    const listItem = document.querySelectorAll("#landing-header li")
+    const menuBackDrop = document.querySelector("#menu-backdrop")
+
+</script>
+
+<script>
+    const $header = document.querySelector('#landing-header') as HTMLElement
+    const observerOptions = {
+        root:null,
+        rootMargin: '0px',
+        threshold: 0.90
+    }
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const { isIntersecting } = entry
+            if(isIntersecting) {
+                const color = entry.target.getAttribute('data-header-color')
+                $header.style.color = color 
+            }
+        });
+    },observerOptions)
+
+
+    const $sections = document.querySelectorAll('.landing-section')
+    $sections.forEach((section) => observer.observe(section));
+</script>
